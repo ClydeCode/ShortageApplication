@@ -36,6 +36,7 @@ namespace ShortageApplication
 					Environment.Exit(0);
 					break;
 				case 1:
+					List();
 					break;
 				case 2:
 					Register();
@@ -46,6 +47,14 @@ namespace ShortageApplication
 				default:
 					Console.WriteLine("Wrong option!");
 					break;
+			}
+		}
+
+		private void List()
+		{
+			foreach (var item in _shortages)
+			{
+				Console.WriteLine($"{item.Id} {item.Title} {item.Room} {item.Category} {item.Priority} {item.CreatedOn}");
 			}
 		}
 

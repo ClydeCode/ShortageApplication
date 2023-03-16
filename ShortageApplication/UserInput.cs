@@ -20,6 +20,29 @@ namespace ShortageApplication
 			return int.Parse(number);
 		}
 
+		public int GetBetweenInt(int number1, int number2, string title)
+		{
+			int number = GetInt(title);
+
+			while (!(number > number1 - 1 && number < number2 + 1))
+			{
+				Console.WriteLine($"Number has to be between {number1} and {number2}");
+
+				number = GetInt(title);
+			}
+
+			return number;
+		}
+
+		public string GetOption(string[] array, string title = "number")
+		{
+			Console.WriteLine($"\n1. {array[0]} \n2. {array[1]} \n3. {array[2]}");
+
+			int number = GetBetweenInt(1, 3, title);
+
+			return array[number - 1];
+		}
+
 		public string GetString(string title)
 		{
 			Console.WriteLine($"\nType {title}:");

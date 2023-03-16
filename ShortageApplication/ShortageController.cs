@@ -5,6 +5,7 @@ namespace ShortageApplication
 	{
 		private readonly FileStorage FileStorage = new();
 		private readonly UserInput UserInput = new();
+		private readonly Filters Filters = new();
 
 		private List<ShortageModel>? _shortages = new();
 		private string _name;
@@ -66,18 +67,18 @@ namespace ShortageApplication
 			switch (option)
 			{
 				case 1:
-					tempList = FilterByTitle(tempList, UserInput.GetString("title"));
+					tempList = Filters.FilterByTitle(tempList, UserInput.GetString("title"));
 					break;
 				case 2:
 					DateTime startDate = UserInput.GetDate();
 					DateTime endDate = UserInput.GetDate(startDate);
-					tempList = FilterByDate(tempList, startDate, endDate);
+					tempList = Filters.FilterByDate(tempList, startDate, endDate);
 					break;
 				case 3:
-					tempList = FilterByCategory(_shortages, UserInput.GetOption(new string[] { "Electronics", "Food", "Other" }));
+					tempList = Filters.FilterByCategory(_shortages, UserInput.GetOption(new string[] { "Electronics", "Food", "Other" }));
 					break;
 				case 4:
-					tempList = FilterByRoom(_shortages, UserInput.GetOption(new string[] { "meeting room", "kitchen", "bathroom" }));
+					tempList = Filters.FilterByRoom(_shortages, UserInput.GetOption(new string[] { "meeting room", "kitchen", "bathroom" }));
 					break;
 				case 5:
 					break;
@@ -86,7 +87,7 @@ namespace ShortageApplication
 					break;
 			}
 
-			if (_name != "administrator") tempList = FilterByName(tempList);
+			if (_name != "administrator") tempList = Filters.FilterByName(tempList, _name);
 
 			foreach (var item in tempList)
 			{
@@ -156,31 +157,6 @@ namespace ShortageApplication
 
 			_shortages = SortByPriority(_shortages);
 			FileStorage.SaveData(_shortages);
-		}
-
-		private List<ShortageModel> FilterByTitle(List<ShortageModel> shortages, string word)
-		{
-			return shortages.Where(item => item.Title.Split(new char[] { ' ' }).Contains(word)).ToList();
-		}
-
-		private List<ShortageModel> FilterByName(List<ShortageModel> shortages)
-		{
-			return shortages.Where(item => item.Name == _name).ToList();
-		}
-
-		private List<ShortageModel> FilterByDate(List<ShortageModel> shortages, DateTime startDate, DateTime endDate)
-		{
-			return shortages.Where(item => startDate <= item.CreatedOn && item.CreatedOn <= endDate).ToList();
-		}
-
-		private List<ShortageModel> FilterByCategory(List<ShortageModel> shortages, string category)
-		{
-			return shortages.Where(item => item.Category == category).ToList();
-		}
-
-		private List<ShortageModel> FilterByRoom(List<ShortageModel> shortages, string room)
-		{
-			return shortages.Where(item => item.Room == room).ToList();
 		}
 
 		private List<ShortageModel> SortByPriority(List<ShortageModel> shortages)

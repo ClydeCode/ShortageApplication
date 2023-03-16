@@ -122,6 +122,11 @@ namespace ShortageApplication
 			FileStorage.SaveData(_shortages);
 		}
 
+		private List<ShortageModel> FilterByTitle(List<ShortageModel> shortages, string word)
+		{
+			return shortages.Where(item => item.Title.Split(new char[] { ' ' }).Contains(word)).ToList();
+		}
+
 		private List<ShortageModel> SortByPriority(List<ShortageModel> shortages)
 		{
 			return shortages.OrderByDescending(item => item.Priority).ToList();

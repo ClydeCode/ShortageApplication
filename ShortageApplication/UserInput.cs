@@ -1,6 +1,7 @@
-﻿
+﻿using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
+[assembly: InternalsVisibleTo("TestApplication")]
 namespace ShortageApplication
 {
 	internal class UserInput
@@ -20,7 +21,7 @@ namespace ShortageApplication
 			return int.Parse(number);
 		}
 
-		public int GetBetweenInt(int number1, int number2, string title)
+		public int GetBetweenInt(int number1, int number2, string title = "number")
 		{
 			int number = GetInt(title);
 
@@ -43,13 +44,13 @@ namespace ShortageApplication
 			return array[number - 1];
 		}
 
-		public string GetString(string title)
+		public string GetString(string title = "text")
 		{
 			Console.WriteLine($"\nType {title}:");
 
 			string? text = Console.ReadLine();
 
-			while (!Regex.IsMatch(text, @"^[a-zA-Z0-9_]+$") && text == null)
+			while (!Regex.IsMatch(text, @"^[a-zA-Z0-9_]+$") || text == null)
 			{
 				Console.WriteLine("Wrong text format!");
 				text = Console.ReadLine();

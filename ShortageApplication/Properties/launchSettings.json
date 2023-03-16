@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ShortageApplication": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Clyde\\source\\repos\\ShortageApplication\\ShortageApplication"
+    }
+  }
+}

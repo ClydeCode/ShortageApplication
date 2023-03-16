@@ -57,5 +57,29 @@ namespace ShortageApplication
 
 			return text;
 		}
+
+		public DateTime GetDate(DateTime startDate = new())
+		{
+			string? date;
+
+			while (true)
+			{
+				Console.WriteLine("Type Date <yyyy-MM-dd>:");
+				date = Console.ReadLine();
+
+				if (!DateTime.TryParse(date, out _))
+				{
+					Console.WriteLine("Wrong Date Format!");
+					continue;
+				}
+
+				if (!(DateTime.Parse(date).CompareTo(startDate) > 0))
+					Console.WriteLine("EndTime can't be earlier than StartTime!");
+				else
+					break;
+			}
+
+			return DateTime.Parse(date);
+		}
 	}
 }

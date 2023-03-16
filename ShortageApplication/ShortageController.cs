@@ -38,6 +38,7 @@ namespace ShortageApplication
 				case 1:
 					break;
 				case 2:
+					Register();
 					break;
 				case 3:
 					break;
@@ -45,6 +46,46 @@ namespace ShortageApplication
 					Console.WriteLine("Wrong option!");
 					break;
 			}
+		}
+
+		private void Register()
+		{
+			int id = _shortages.Count;
+			string title = UserInput.GetString("title");
+			string name = _name;
+			string room = UserInput.GetOption(new string[] { "meeting room", "kitchen", "bathroom" });
+			string category = UserInput.GetOption(new string[] { "Electronics", "Food", "Other" });
+			int priority = UserInput.GetBetweenInt(1, 10, "priority");
+			DateTime createdOn = DateTime.Now;
+
+			var obj = new ShortageModel
+			{
+				Id = id,
+				Title = title,
+				Name = name,
+				Room = room,
+				Category = category,
+				Priority = priority,
+				CreatedOn = createdOn
+			};
+
+			AddObjToList(obj);
+		}
+
+		private void AddObjToList(ShortageModel newObj)
+		{
+			ShortageModel? tempObj = _shortages.Find(item => item.Title == newObj.Title);
+
+			if (tempObj != null && tempObj.Room == newObj.Room)
+			{
+				if (tempObj.Priority < newObj.Priority) tempObj.Priority = newObj.Priority;
+				else
+					Console.WriteLine("This item already exists!");
+			}
+			else
+				_shortages.Add(newObj);
+
+			FileStorage.SaveData(_shortages);
 		}
 	}
 }

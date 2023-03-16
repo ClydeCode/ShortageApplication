@@ -118,7 +118,13 @@ namespace ShortageApplication
 			else
 				_shortages.Add(newObj);
 
+			_shortages = SortByPriority(_shortages);
 			FileStorage.SaveData(_shortages);
+		}
+
+		private List<ShortageModel> SortByPriority(List<ShortageModel> shortages)
+		{
+			return shortages.OrderByDescending(item => item.Priority).ToList();
 		}
 	}
 }

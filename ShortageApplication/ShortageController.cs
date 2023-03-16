@@ -3,12 +3,15 @@ namespace ShortageApplication
 {
 	internal class ShortageController
 	{
+		FileStorage FileStorage = new();
 		UserInput UserInput = new();
 
+		private List<ShortageModel>? _shortages = new();
 		private string _name;
 
 		public ShortageController()
 		{
+			_shortages = FileStorage.GetData();
 			_name = UserInput.GetString("name");
 		}
 

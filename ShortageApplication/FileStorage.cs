@@ -12,5 +12,14 @@ namespace ShortageApplication
 
 			File.WriteAllText(_fileName, jsonString);
 		}
+
+		public List<ShortageModel>? GetData()
+		{
+			if (!File.Exists(_fileName)) return new List<ShortageModel>();
+
+			string jsonString = File.ReadAllText(_fileName);
+
+			return JsonSerializer.Deserialize<List<ShortageModel>>(jsonString);
+		}
 	}
 }

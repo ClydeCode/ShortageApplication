@@ -127,6 +127,26 @@ namespace ShortageApplication
 			return shortages.Where(item => item.Title.Split(new char[] { ' ' }).Contains(word)).ToList();
 		}
 
+		private List<ShortageModel> FilterByName(List<ShortageModel> shortages)
+		{
+			return shortages.Where(item => item.Name == _name).ToList();
+		}
+
+		private List<ShortageModel> FilterByDate(List<ShortageModel> shortages, DateTime startDate, DateTime endDate)
+		{
+			return shortages.Where(item => startDate <= item.CreatedOn && item.CreatedOn <= endDate).ToList();
+		}
+
+		private List<ShortageModel> FilterByCategory(List<ShortageModel> shortages, string category)
+		{
+			return shortages.Where(item => item.Category == category).ToList();
+		}
+
+		private List<ShortageModel> FilterByRoom(List<ShortageModel> shortages, string room)
+		{
+			return shortages.Where(item => item.Room == room).ToList();
+		}
+
 		private List<ShortageModel> SortByPriority(List<ShortageModel> shortages)
 		{
 			return shortages.OrderByDescending(item => item.Priority).ToList();

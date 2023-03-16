@@ -1,4 +1,6 @@
 ﻿
+using System.Text.RegularExpressions;
+
 namespace ShortageApplication
 {
 	internal class UserInput
@@ -16,6 +18,21 @@ namespace ShortageApplication
 			}
 
 			return int.Parse(number);
+		}
+
+		public string GetString(string title)
+		{
+			Console.WriteLine($"\nType {title}:");
+
+			string? text = Console.ReadLine();
+
+			while (!Regex.IsMatch(text, @"^[a-zA-Z0-9_]+$") && text == null)
+			{
+				Console.WriteLine("Wrong text format!");
+				text = Console.ReadLine();
+			}
+
+			return text;
 		}
 	}
 }

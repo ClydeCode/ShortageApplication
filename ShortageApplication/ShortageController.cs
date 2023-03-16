@@ -41,6 +41,7 @@ namespace ShortageApplication
 					Register();
 					break;
 				case 3:
+					Delete();
 					break;
 				default:
 					Console.WriteLine("Wrong option!");
@@ -70,6 +71,29 @@ namespace ShortageApplication
 			};
 
 			AddObjToList(obj);
+		}
+
+		private void Delete()
+		{
+			int id = UserInput.GetInt("id");
+
+			var obj = _shortages.Find(item => item.Id == id);
+
+			if (obj != null)
+			{
+				if (obj.Name != _name && _name != "administrator")
+				{
+					Console.WriteLine("You don't have required permissions to do that!");
+
+					return;
+				}
+			}
+			else
+				return;
+
+			_shortages.Remove(obj);
+
+			FileStorage.SaveData(_shortages);
 		}
 
 		private void AddObjToList(ShortageModel newObj)

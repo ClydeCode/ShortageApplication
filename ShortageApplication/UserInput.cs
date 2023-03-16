@@ -74,7 +74,7 @@ namespace ShortageApplication
 					continue;
 				}
 
-				if (!(DateTime.Parse(date).CompareTo(startDate) > 0))
+				if (!(DateTime.Parse(date).CompareTo(startDate) >= 0))
 					Console.WriteLine("EndTime can't be earlier than StartTime!");
 				else
 					break;

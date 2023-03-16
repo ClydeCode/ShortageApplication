@@ -52,7 +52,43 @@ namespace ShortageApplication
 
 		private void List()
 		{
-			foreach (var item in _shortages)
+			List<ShortageModel> tempList = _shortages;
+
+			Console.WriteLine("Would you like to filter list?");
+			Console.WriteLine("1. Filter by Title");
+			Console.WriteLine("2. Filter by Date");
+			Console.WriteLine("3. Filter by Category");
+			Console.WriteLine("4. Filter by Room");
+			Console.WriteLine("5. Don't use any filters");
+
+			int option = UserInput.GetBetweenInt(1, 5, "option");
+
+			switch (option)
+			{
+				case 1:
+					tempList = FilterByTitle(tempList, UserInput.GetString("title"));
+					break;
+				case 2:
+					DateTime startDate = UserInput.GetDate();
+					DateTime endDate = UserInput.GetDate(startDate);
+					tempList = FilterByDate(tempList, startDate, endDate);
+					break;
+				case 3:
+					tempList = FilterByCategory(_shortages, UserInput.GetOption(new string[] { "Electronics", "Food", "Other" }));
+					break;
+				case 4:
+					tempList = FilterByRoom(_shortages, UserInput.GetOption(new string[] { "meeting room", "kitchen", "bathroom" }));
+					break;
+				case 5:
+					break;
+				default:
+					Console.WriteLine("Wrong option!");
+					break;
+			}
+
+			if (_name != "administrator") tempList = FilterByName(tempList);
+
+			foreach (var item in tempList)
 			{
 				Console.WriteLine($"{item.Id} {item.Title} {item.Room} {item.Category} {item.Priority} {item.CreatedOn}");
 			}

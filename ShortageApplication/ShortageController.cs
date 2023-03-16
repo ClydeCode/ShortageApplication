@@ -3,6 +3,15 @@ namespace ShortageApplication
 {
 	internal class ShortageController
 	{
+		UserInput UserInput = new();
+
+		private string _name;
+
+		public ShortageController()
+		{
+			_name = UserInput.GetString("name");
+		}
+
 		public void ShowMenu()
 		{
 			Console.Clear();

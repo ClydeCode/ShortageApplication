@@ -4,7 +4,12 @@ namespace ShortageApplication
 {
 	internal class FileStorage
 	{
-		private string _fileName = "shortageData.json";
+		private readonly string _fileName;
+
+		public FileStorage(string fileName)
+		{
+			_fileName = fileName;
+		}
 
 		public void SaveData(List<ShortageModel> list)
 		{

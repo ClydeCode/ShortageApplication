@@ -3,7 +3,7 @@ namespace ShortageApplication
 {
 	internal class ShortageController
 	{
-		private readonly FileStorage _fileStorage = new();
+		private readonly FileStorage _fileStorage = new("shortageData.json");
 
 		private List<ShortageModel>? _shortages = new();
 		private string _name;

@@ -3,15 +3,14 @@ namespace ShortageApplication
 {
 	internal class ShortageController
 	{
-		private readonly FileStorage FileStorage = new();
-		private readonly Filters Filters = new();
+		private readonly FileStorage _fileStorage = new();
 
 		private List<ShortageModel>? _shortages = new();
 		private string _name;
 
 		public ShortageController()
 		{
-			_shortages = FileStorage.GetData();
+			_shortages = _fileStorage.GetData();
 			_name = UserInput.GetString("name");
 		}
 
@@ -66,18 +65,18 @@ namespace ShortageApplication
 			switch (option)
 			{
 				case 1:
-					tempList = Filters.FilterByTitle(tempList, UserInput.GetString("title"));
+					tempList = Data.FilterByTitle(tempList, UserInput.GetString("title"));
 					break;
 				case 2:
 					DateTime startDate = UserInput.GetDate();
 					DateTime endDate = UserInput.GetDate(startDate);
-					tempList = Filters.FilterByDate(tempList, startDate, endDate);
+					tempList = Data.FilterByDate(tempList, startDate, endDate);
 					break;
 				case 3:
-					tempList = Filters.FilterByCategory(_shortages, UserInput.GetOption(new string[] { "Electronics", "Food", "Other" }));
+					tempList = Data.FilterByCategory(_shortages, UserInput.GetOption(new string[] { "Electronics", "Food", "Other" }));
 					break;
 				case 4:
-					tempList = Filters.FilterByRoom(_shortages, UserInput.GetOption(new string[] { "meeting room", "kitchen", "bathroom" }));
+					tempList = Data.FilterByRoom(_shortages, UserInput.GetOption(new string[] { "meeting room", "kitchen", "bathroom" }));
 					break;
 				case 5:
 					break;
@@ -86,7 +85,7 @@ namespace ShortageApplication
 					break;
 			}
 
-			if (_name != "administrator") tempList = Filters.FilterByName(tempList, _name);
+			if (_name != "administrator") tempList = Data.FilterByName(tempList, _name);
 
 			foreach (var item in tempList)
 			{
@@ -138,7 +137,7 @@ namespace ShortageApplication
 
 			_shortages.Remove(obj);
 
-			FileStorage.SaveData(_shortages);
+			_fileStorage.SaveData(_shortages);
 		}
 
 		private void AddObjToList(ShortageModel newObj)
@@ -154,13 +153,8 @@ namespace ShortageApplication
 			else
 				_shortages.Add(newObj);
 
-			_shortages = SortByPriority(_shortages);
-			FileStorage.SaveData(_shortages);
-		}
-
-		private List<ShortageModel> SortByPriority(List<ShortageModel> shortages)
-		{
-			return shortages.OrderByDescending(item => item.Priority).ToList();
+			_shortages = Data.SortByPriority(_shortages);
+			_fileStorage.SaveData(_shortages);
 		}
 	}
 }

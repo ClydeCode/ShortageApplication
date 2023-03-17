@@ -6,13 +6,6 @@ namespace TestApplication
 	[TestClass]
 	public class TestUserInput
 	{
-		private readonly UserInput _userInput;
-
-		public TestUserInput()
-		{
-			_userInput = new UserInput();
-		}
-
 		[DataTestMethod]
 		[DataRow("1")]
 		[DataRow("50")]
@@ -23,7 +16,7 @@ namespace TestApplication
 			{
 				Console.SetIn(reader);
 
-				int actual = _userInput.GetInt();
+				int actual = UserInput.GetInt();
 				int expected = int.Parse(value);
 
 				Assert.AreEqual(expected, actual);
@@ -41,7 +34,7 @@ namespace TestApplication
 				Console.SetIn(reader);
 				Console.SetOut(writer);
 
-				_ = _userInput.GetInt();
+				_ = UserInput.GetInt();
 
 				string actualMessage = writer.ToString();
 				string expectedMessage = "Wrong number format!";
@@ -60,7 +53,7 @@ namespace TestApplication
 			{
 				Console.SetIn(reader);
 
-				int actual = _userInput.GetBetweenInt(10, 20);
+				int actual = UserInput.GetBetweenInt(10, 20);
 				int expected = int.Parse(value);
 
 				Assert.AreEqual(expected, actual);
@@ -79,7 +72,7 @@ namespace TestApplication
 				Console.SetIn(reader);
 				Console.SetOut(writer);
 
-				_ = _userInput.GetBetweenInt(10, 20);
+				_ = UserInput.GetBetweenInt(10, 20);
 
 				string actualMessage = writer.ToString();
 				string expectedMessage = "Number has to be between";
@@ -100,7 +93,7 @@ namespace TestApplication
 			{
 				Console.SetIn(reader);
 
-				string actual = _userInput.GetOption(new string[] {"Electronics", "Food", "Other"});
+				string actual = UserInput.GetOption(new string[] {"Electronics", "Food", "Other"});
 				string expected = array[int.Parse(value) - 1];
 
 				Assert.AreEqual(expected, actual);
@@ -117,7 +110,7 @@ namespace TestApplication
 			{
 				Console.SetIn(reader);
 
-				string actual = _userInput.GetString();
+				string actual = UserInput.GetString();
 				string expected = value;
 
 				Assert.AreEqual(value, actual);
@@ -136,7 +129,7 @@ namespace TestApplication
 				Console.SetIn(reader);
 				Console.SetOut(writer);
 
-				_ = _userInput.GetString();
+				_ = UserInput.GetString();
 
 				string actualMessage = writer.ToString();
 				string expectedMessage = "Wrong text format!";
@@ -154,7 +147,7 @@ namespace TestApplication
 			{
 				Console.SetIn(reader);
 
-				DateTime actual = _userInput.GetDate();
+				DateTime actual = UserInput.GetDate();
 				DateTime expected = DateTime.Parse(value);
 
 				Assert.AreEqual(expected, actual);
@@ -170,7 +163,7 @@ namespace TestApplication
 			{
 				Console.SetIn(reader);
 
-				DateTime actual = _userInput.GetDate(new DateTime(2023-01-01));
+				DateTime actual = UserInput.GetDate(new DateTime(2023-01-01));
 				DateTime expected = DateTime.Parse(value);
 
 				Assert.AreEqual(expected, actual);
@@ -189,7 +182,7 @@ namespace TestApplication
 				Console.SetIn(reader);
 				Console.SetOut(writer);
 
-				_ = _userInput.GetDate();
+				_ = UserInput.GetDate();
 
 				string actualMessage = writer.ToString();
 				string expectedMessage = "Wrong Date Format!";
@@ -210,7 +203,7 @@ namespace TestApplication
 				Console.SetIn(reader);
 				Console.SetOut(writer);
 
-				_ = _userInput.GetDate(new DateTime(2023, 01, 01));
+				_ = UserInput.GetDate(new DateTime(2023, 01, 01));
 
 				string actualMessage = writer.ToString();
 				string expectedMessage = "EndTime can't be earlier than StartTime!";

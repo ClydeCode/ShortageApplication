@@ -4,7 +4,6 @@ namespace ShortageApplication
 	internal class ShortageController
 	{
 		private readonly FileStorage FileStorage = new();
-		private readonly UserInput UserInput = new();
 		private readonly Filters Filters = new();
 
 		private List<ShortageModel>? _shortages = new();

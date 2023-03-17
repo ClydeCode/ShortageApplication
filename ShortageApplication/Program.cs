@@ -1,7 +1,6 @@
 ﻿using ShortageApplication;
 
 ShortageController Program = new();
-UserInput UserInput = new();
 
 while (true)
 {

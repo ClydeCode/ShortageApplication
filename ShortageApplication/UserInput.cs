@@ -4,9 +4,9 @@ using System.Text.RegularExpressions;
 [assembly: InternalsVisibleTo("TestApplication")]
 namespace ShortageApplication
 {
-	internal class UserInput
+	static class UserInput
 	{
-		public int GetInt(string title = "number")
+		static public int GetInt(string title = "number")
 		{
 			Console.WriteLine($"\nType {title}:");
 
@@ -21,7 +21,7 @@ namespace ShortageApplication
 			return int.Parse(number);
 		}
 
-		public int GetBetweenInt(int number1, int number2, string title = "number")
+		static public int GetBetweenInt(int number1, int number2, string title = "number")
 		{
 			int number = GetInt(title);
 
@@ -35,7 +35,7 @@ namespace ShortageApplication
 			return number;
 		}
 
-		public string GetOption(string[] array, string title = "number")
+		static public string GetOption(string[] array, string title = "number")
 		{
 			Console.WriteLine($"\n1. {array[0]} \n2. {array[1]} \n3. {array[2]}");
 
@@ -44,7 +44,7 @@ namespace ShortageApplication
 			return array[number - 1];
 		}
 
-		public string GetString(string title = "text")
+		static public string GetString(string title = "text")
 		{
 			Console.WriteLine($"\nType {title}:");
 
@@ -59,7 +59,7 @@ namespace ShortageApplication
 			return text;
 		}
 
-		public DateTime GetDate(DateTime startDate = new())
+		static public DateTime GetDate(DateTime startDate = new())
 		{
 			string? date;
 
